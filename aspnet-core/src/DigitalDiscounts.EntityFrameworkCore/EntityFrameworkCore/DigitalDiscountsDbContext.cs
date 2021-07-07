@@ -4,6 +4,7 @@ using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.Identity;
+using DigitalDiscounts.Stores;
 using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace DigitalDiscounts.EntityFrameworkCore
@@ -20,6 +21,7 @@ namespace DigitalDiscounts.EntityFrameworkCore
     [ConnectionStringName("Default")]
     public class DigitalDiscountsDbContext : AbpDbContext<DigitalDiscountsDbContext>
     {
+        public DbSet<Store> Stores { get; set; }
         public DbSet<AppUser> Users { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.

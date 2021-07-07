@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Volo.Abp;
+﻿using Volo.Abp;
+using DigitalDiscounts.Stores;
+using Microsoft.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace DigitalDiscounts.EntityFrameworkCore
 {
@@ -17,6 +19,14 @@ namespace DigitalDiscounts.EntityFrameworkCore
             //    b.ConfigureByConvention(); //auto configure for the base class props
             //    //...
             //});
+
+            builder.Entity<Store>(b =>
+            {
+                b.ToTable(DigitalDiscountsConsts.DbTablePrefix + "Stores", DigitalDiscountsConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(StoreConsts.MaxNameLength);
+                b.HasIndex(x => x.Name);
+            });
         }
     }
 }

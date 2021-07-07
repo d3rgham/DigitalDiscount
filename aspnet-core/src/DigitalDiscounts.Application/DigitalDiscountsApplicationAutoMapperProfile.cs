@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using DigitalDiscounts.Stores;
+using AutoMapper;
 
 namespace DigitalDiscounts
 {
@@ -9,6 +10,9 @@ namespace DigitalDiscounts
             /* You can configure your AutoMapper mapping configuration here.
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
+
+            CreateMap<Store, StoreDto>();
+            //CreateMap<Store, StoreLookupDto>();
         }
     }
 }
