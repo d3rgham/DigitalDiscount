@@ -20,6 +20,7 @@ namespace DigitalDiscounts.Stores
             Check.NotNullOrWhiteSpace(name, nameof(name));
 
             var existingStore = await _storeRepository.FindByNameAsync(name);
+
             if (existingStore != null)
             {
                 throw new StoreAlreadyExistsException(name);

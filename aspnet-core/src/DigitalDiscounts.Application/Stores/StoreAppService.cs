@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DigitalDiscounts.Stores
 {
-    //[Authorize(DigitalDiscountsPermissions.Stores.Default)]
+    [Authorize(DigitalDiscountsPermissions.Stores.Default)]
     public class StoreAppService : DigitalDiscountsAppService, IStoreAppService
     {
         private readonly IStoreRepository _storeRepository;
