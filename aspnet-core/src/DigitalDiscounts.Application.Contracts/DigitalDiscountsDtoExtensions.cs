@@ -6,7 +6,7 @@ namespace DigitalDiscounts
 {
     public static class DigitalDiscountsDtoExtensions
     {
-        private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
+        private static readonly OneTimeRunner OneTimeRunner = new();
 
         public static void Configure()
         {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Volo.Abp.Domain.Repositories;
 using DigitalDiscounts.Permissions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace DigitalDiscounts.Stores
 {
@@ -45,11 +46,18 @@ namespace DigitalDiscounts.Stores
         [Authorize(DigitalDiscountsPermissions.Stores.Create)]
         public async Task<StoreDto> CreateAsync(CreateStoreDto input)
         {
-            var store = await _storeManager.CreateAsync(input.Name);
-
-            await _storeRepository.InsertAsync(store);
-
-            return ObjectMapper.Map<Store, StoreDto>(store);
+            try
+            {
+                var store = await _storeManager.CreateAsync(input.Name);
+                await _storeRepository.InsertAsync(store);
+                Logger.LogInformation("Creating a new store with name: " + input.Name);
+                return ObjectMapper.Map<Store, StoreDto>(store);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Error while creating a new store : " + ex.Message);
+                throw;
+            }
         }
 
         [Authorize(DigitalDiscountsPermissions.Stores.Edit)]

@@ -1,4 +1,5 @@
-﻿using DigitalDiscounts.Stores;
+﻿using DigitalDiscounts.Licenses;
+using DigitalDiscounts.Stores;
 using AutoMapper;
 
 namespace DigitalDiscounts
@@ -12,7 +13,10 @@ namespace DigitalDiscounts
              * into multiple profile classes for a better organization. */
 
             CreateMap<Store, StoreDto>();
-            //CreateMap<Store, StoreLookupDto>();
+            CreateMap<Store, StoreLookupDto>();
+
+            CreateMap<License, LicenseDto>();
+            CreateMap<CreateUpdateLicenseDto, License>();
         }
     }
 }

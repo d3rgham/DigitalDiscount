@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DigitalDiscounts.Users;
-using Volo.Abp.Data;
-using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.Modeling;
+﻿using Volo.Abp.Data;
 using Volo.Abp.Identity;
+using DigitalDiscounts.Users;
 using DigitalDiscounts.Stores;
+using DigitalDiscounts.Licenses;
+using Volo.Abp.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Users.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace DigitalDiscounts.EntityFrameworkCore
 {
@@ -22,6 +23,7 @@ namespace DigitalDiscounts.EntityFrameworkCore
     public class DigitalDiscountsDbContext : AbpDbContext<DigitalDiscountsDbContext>
     {
         public DbSet<Store> Stores { get; set; }
+        public DbSet<License> Licenses { get; set; }
         public DbSet<AppUser> Users { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.

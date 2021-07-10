@@ -1,5 +1,6 @@
 ﻿using Volo.Abp;
 using DigitalDiscounts.Stores;
+using DigitalDiscounts.Licenses;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -26,6 +27,16 @@ namespace DigitalDiscounts.EntityFrameworkCore
                 b.ConfigureByConvention();
                 b.Property(x => x.Name).IsRequired().HasMaxLength(StoreConsts.MaxNameLength);
                 b.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<License>(b =>
+            {
+                b.ToTable(DigitalDiscountsConsts.DbTablePrefix + "Licenses", DigitalDiscountsConsts.DbSchema);
+                b.ConfigureByConvention(); //auto configure for the base class props
+                b.Property(x => x.Number).IsRequired();
+
+                // ADD THE MAPPING FOR THE RELATION
+                b.HasOne<Store>().WithMany().HasForeignKey(x => x.StoreId).IsRequired();
             });
         }
     }

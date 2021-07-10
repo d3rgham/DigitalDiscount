@@ -4,15 +4,17 @@ using DigitalDiscounts.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace DigitalDiscounts.Migrations
 {
     [DbContext(typeof(DigitalDiscountsMigrationsDbContext))]
-    partial class DigitalDiscountsMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210709173529_Added_LicensesTBL")]
+    partial class Added_LicensesTBL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

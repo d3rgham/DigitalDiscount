@@ -22,10 +22,8 @@ namespace DigitalDiscounts.Stores
             var existingStore = await _storeRepository.FindByNameAsync(name);
 
             if (existingStore != null)
-            {
                 throw new StoreAlreadyExistsException(name);
-            }
-
+            
             return new Store(GuidGenerator.Create(), name);
         }
 
@@ -35,10 +33,9 @@ namespace DigitalDiscounts.Stores
             Check.NotNullOrWhiteSpace(newName, nameof(newName));
 
             var existingStore = await _storeRepository.FindByNameAsync(newName);
+
             if (existingStore != null && existingStore.Id != store.Id)
-            {
                 throw new StoreAlreadyExistsException(newName);
-            }
 
             store.ChangeName(newName);
         }
