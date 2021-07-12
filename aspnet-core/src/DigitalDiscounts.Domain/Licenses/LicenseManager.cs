@@ -14,9 +14,10 @@ namespace DigitalDiscounts.Licenses
         private readonly IStoreRepository _storeRepository;
 
 
-        public LicenseManager(ILicenseRepository licenseRepository)
+        public LicenseManager(ILicenseRepository licenseRepository, IStoreRepository storeRepository)
         {
             _licenseRepository = licenseRepository;
+            _storeRepository = storeRepository;
         }
 
         public async Task<License> CreateAsync(long number, LicenseStatus status, DateTime startDate, DateTime endDate, Guid storeId)
@@ -35,7 +36,7 @@ namespace DigitalDiscounts.Licenses
 
                 return new License(GuidGenerator.Create(), number, status, startDate, endDate, storeId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -62,7 +63,7 @@ namespace DigitalDiscounts.Licenses
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -81,7 +82,7 @@ namespace DigitalDiscounts.Licenses
 
                 license.ChangeNumber(newNumber);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -94,12 +95,12 @@ namespace DigitalDiscounts.Licenses
                 Check.NotNull(license, nameof(license));
                 Guard.Against.NullOrEmpty(storeId, nameof(storeId), "Store value requierd");
 
-                var existingStore = await _storeRepository.GetAsync(storeId);
+                var existingStore = await _storeRepository.FindAsync(storeId);
                 Guard.Against.Null(existingStore, nameof(existingStore), "Store is not exist");
 
                 license.ChangeStore(storeId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -113,7 +114,7 @@ namespace DigitalDiscounts.Licenses
                 Guard.Against.NegativeOrZero((int)status, nameof(status), "Status value requierd");
                 license.ChangeStatus(status);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

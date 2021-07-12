@@ -8,11 +8,7 @@ namespace DigitalDiscounts.Permissions
     {
         public override void Define(IPermissionDefinitionContext context)
         {
-            //var myGroup = context.AddGroup(DigitalDiscountsPermissions.GroupName);
             var digitalDiscountGroup = context.AddGroup(DigitalDiscountsPermissions.GroupName, L("Permission:DigitalDiscount"));
-
-            //Define your own permissions here. Example:
-            //myGroup.AddPermission(DigitalDiscountsPermissions.MyPermission1, L("Permission:MyPermission1"));
 
             var storesPermission = digitalDiscountGroup.AddPermission(DigitalDiscountsPermissions.Stores.Default, L("Permission:Stores"));
             storesPermission.AddChild(DigitalDiscountsPermissions.Stores.Create, L("Permission:Stores.Create"));

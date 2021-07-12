@@ -13,5 +13,7 @@ namespace DigitalDiscounts.Licenses
         Task<License> FindByNumberAsync(long number);
         Task <dynamic> GetAsyncLicenseWithStore(Guid id);
         Task<dynamic> GetListAsync(int skipCount, int maxResultCount, string sorting, long filter);
+        Task<dynamic> GetListAsync(int skipCount, int maxResultCount, string sorting, int filter);
+
     }
 }

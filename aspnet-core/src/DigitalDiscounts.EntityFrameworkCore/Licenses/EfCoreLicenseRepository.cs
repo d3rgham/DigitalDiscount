@@ -42,9 +42,12 @@ namespace DigitalDiscounts.Licenses
             {
                 var queryable = await GetQueryableAsync();
 
+                //var licenseStatus = Enum.GetValues(typeof(LicenseStatus)).Cast<LicenseStatus>().Select(s => new { Value = (int)s, Name = s.ToString() }).ToList();
+
                 //Prepare a query to join licenses and stores
                 var query = from license in queryable
-                            join store in _storeRepository on license.StoreId equals store.Id
+                            join store in _storeRepository on license.StoreId equals store.Id 
+                            //join s in licenseStatus on (int)license.Status equals s.Value
                             where license.Id == id
                             select new LicenseWithStore { LicenseObj = license, StoreName = store.Name };
 
@@ -76,6 +79,33 @@ namespace DigitalDiscounts.Licenses
 
                 //Paging & sorting
                 query = query.WhereIf(!filter.Equals(0), l => l.LicenseObj.Number.Equals(filter)).
+                    OrderBy(NormalizeSorting(sorting)).Skip(skipCount).Take(maxResultCount);
+
+                //Execute the query and get a list
+                var queryResult = await AsyncExecuter.ToListAsync(query);
+
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<dynamic> GetListAsync(int skipCount, int maxResultCount, string sorting, int filter = 0)
+        {
+            try
+            {
+                //Get the IQueryable<License> from the repository
+                var queryable = await GetQueryableAsync();
+
+                //Prepare a query to join licenses and stores
+                var query = from license in queryable
+                            join store in _storeRepository on license.StoreId equals store.Id
+                            select new LicenseWithStore { LicenseObj = license, StoreName = store.Name };
+
+                //Paging & sorting
+                query = query.Where(l => ((int)l.LicenseObj.Status).Equals(filter)).
                     OrderBy(NormalizeSorting(sorting)).Skip(skipCount).Take(maxResultCount);
 
                 //Execute the query and get a list

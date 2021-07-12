@@ -5,6 +5,11 @@
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     "DigitalDiscounts:001": "There is already a store with the same name: {name}",
-    "DigitalDiscounts:002": "There is already a license with the same number: {number}"
+    "DigitalDiscounts:002": "There is already a license with the same number: {number}",
+    "Enum:LicenseStatus:0": "Undefined",
+    "Enum:LicenseStatus:1": "New",
+    "Enum:LicenseStatus:2": "InProgress",
+    "Enum:LicenseStatus:3": "Closed"
+
   }
 }
